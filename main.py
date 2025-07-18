@@ -21,7 +21,32 @@ def save_raw_data(data, filepath):
 
 # Make sure data folder exists
 Path("data").mkdir(exist_ok=True)
+import pandas as pd
+
+# Step 3: Filter top 5 products by rating
+def get_top5_products(json_path):
+    print("Filtering top 5 products by rating...")
+    
+    # Load JSON data
+    with open(json_path, "r") as f:
+        data = json.load(f)
+    
+    # Normalize JSON to flat table
+    df = pd.json_normalize(data)
+
+    # Sort by rating.rate descending
+    df_top5 = df.sort_values(by="rating.rate", ascending=False).head(5)
+
+    print("Top 5 products selected.")
+    return df_top5
 
 if __name__ == "__main__":
     products = fetch_data(API_URL)
     save_raw_data(products, "data/raw.json")
+
+    top5_df = get_top5_products("data/raw.json")
+    print(top5_df[["title", "price", "rating.rate"]])  # Preview
+
+    # Step 4: Save top 5 products to a CSV
+    top5_df.to_csv("data/top5_products.csv", index=False)
+    print("Top 5 products saved to CSV.")
