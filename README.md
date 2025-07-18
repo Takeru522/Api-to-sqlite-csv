@@ -24,3 +24,9 @@ This Python script automates the full workflow:
 - `sqlite3` – store all product records
 
 ## 📁 Folder Structure
+
+## ▶️ How to Run
+
+1. Clone the repo  
+2. Install dependencies  
+3. Run the script  
