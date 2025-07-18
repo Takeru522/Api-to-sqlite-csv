@@ -1,0 +1,8 @@
+# Ignore virtual environments and system files
+__pycache__/
+*.pyc
+
+# Ignore data files
+data/*.json
+data/*.db
+data/*.csv
