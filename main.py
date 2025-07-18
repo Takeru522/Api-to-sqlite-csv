@@ -52,6 +52,9 @@ if __name__ == "__main__":
     top5_df = get_top5_products("data/raw.json")
     print(top5_df[["title", "price", "rating.rate"]])  # Preview
 
+    # Save full dataset to SQLite
+    df_all = pd.json_normalize(products)  # Normalize JSON to flat table
+    save_to_sqlite(df_all, "data/products.db")
     # Save top 5 products to a CSV
     top5_df.to_csv("data/top5_products.csv", index=False)
     print("Top 5 products saved to CSV.")
