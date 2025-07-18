@@ -43,12 +43,11 @@ def save_to_sqlite(df, db_path, table_name="products"):
     print("Data saved to SQLite.")
 
 if __name__ == "__main__":
-    # Ensure data folder exists
     Path("data").mkdir(exist_ok=True)
 
     products = fetch_data(API_URL)
     save_raw_data(products, "data/raw.json")
-
+    
     top5_df = get_top5_products("data/raw.json")
     print(top5_df[["title", "price", "rating.rate"]])  # Preview
 
