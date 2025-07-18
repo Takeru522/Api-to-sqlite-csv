@@ -44,12 +44,17 @@ def save_to_sqlite(df, db_path, table_name="products"):
 
 if __name__ == "__main__":
     Path("data").mkdir(exist_ok=True)
-
+    columns_to_export = ["title", "price", "category", "rating.rate"]
     products = fetch_data(API_URL)
     save_raw_data(products, "data/raw.json")
-    
     top5_df = get_top5_products("data/raw.json")
+    top5_df[columns_to_export].to_csv("data/top5.csv", index=False)
+    print("Top 5 products exported to data/top5.csv ✅")
+    
+    
+    
     print(top5_df[["title", "price", "rating.rate"]])  # Preview
+    
 
     # Save full dataset to SQLite
     df_all = pd.json_normalize(products)  # Normalize JSON to flat table
